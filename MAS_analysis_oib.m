@@ -4,7 +4,7 @@
 % Location of datafiles: MATLAB/data
 % output files will be in MATLAB/data
 % .oib files should be labelled by consequent numbers starting with 1
-% Output file All.csv contains infomation about every individual 
+% Output file All.csv contains infomation about every individual
 % attachment site, whereas Avarage.csv contains avarage values per embryo.
 
 clc;
@@ -73,24 +73,20 @@ for k = 1:numel(files)
         sall=regionprops(ccall, Series_plane, 'Area', 'MeanIntensity', 'Eccentricity', 'Orientation');
         %% selection of correct objects and recording data of each object
         for i=1:numel(sall)
-            if sall(i).Eccentricity > 0.97
-                if sall(i).Area < 4000
-                    if abs(sall(i).Orientation)>45
-                        if (sall(i).MeanIntensity - mean([sbg.MeanIntensity]))>0
-                            datacounter = datacounter + 1;
-                            data(datacounter,1)=k;
-                            data(datacounter,2)=sall(i).MeanIntensity - mean([sbg.MeanIntensity]);
-                            data(datacounter,3)=sall(i).Area;
-                            data(datacounter,4)=data(datacounter,2)*data(datacounter,3)/1000;
-                            data(datacounter,5)=sall(i).Eccentricity;
-                            averageint=averageint + data(datacounter,2);
-                            averagesize=averagesize + sall(i).Area;
-                            averagetotal=averagetotal + data(datacounter,4);
-                            averageel=averageel + sall(i).Eccentricity;
-                            datacounter2 = datacounter2 + 1;
-                        end
-                    end
-                end
+            if sall(i).Eccentricity > 0.97 && sall(i).Area < 4000 && abs(sall(i).Orientation)>45 && (sall(i).MeanIntensity - mean([sbg.MeanIntensity]))>0
+                
+                datacounter = datacounter + 1;
+                data(datacounter,1)=k;
+                data(datacounter,2)=sall(i).MeanIntensity - mean([sbg.MeanIntensity]);
+                data(datacounter,3)=sall(i).Area;
+                data(datacounter,4)=data(datacounter,2)*data(datacounter,3)/1000;
+                data(datacounter,5)=sall(i).Eccentricity;
+                averageint=averageint + data(datacounter,2);
+                averagesize=averagesize + sall(i).Area;
+                averagetotal=averagetotal + data(datacounter,4);
+                averageel=averageel + sall(i).Eccentricity;
+                datacounter2 = datacounter2 + 1;
+                
             end
         end
         
@@ -117,7 +113,7 @@ csvwrite_with_headers('Average.csv',data2, headers);
 headers = {'embryo', 'Intensiry', 'Area', 'Total', 'Eccentricity'};
 csvwrite_with_headers('All.csv',data, headers);
 cd('../');
-cd('MAS/'); 
+cd('MAS/');
 
 clc;
 clear variables;
