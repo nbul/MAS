@@ -8,28 +8,25 @@ clc;
 clear variables;
 close all;
 
-%%Default extension
+%% Defining extension
+% Default extension
 fileext = '.oib';
 
 usedefault = questdlg(strcat('Use default settings (fileext = ', fileext,'?)'),'Settings','Yes','No','Yes');
 if strcmp(usedefault, 'No');
     parameters = inputdlg({'Enter file extension:'},'Parameters',1,{fileext});
-    % *** Redefine extension ***
+    % Redefine extension 
     fileext = parameters{1};
 else
     parameters{1} = fileext;
 end
 
-%Open the file
+%% Open the file
 currdir = pwd;
 filedir = uigetdir();
 files = dir(strcat(filedir,'/*', '.oib'));
 cd(filedir);
-% cd('../');
-% cd('data/');
-% files = dir('*.oib');
-% cd('../');
-% cd('MAS/');
+
 %% assign memory
 data=zeros(1000,3);
 data2=zeros(numel(files)+2,3);
