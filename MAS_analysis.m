@@ -1,22 +1,36 @@
 %% Script to measure parameters of mascle attachment sites
-% Location of MAS_analysis_oib.m, bfopen.m and csvwrite_with_headers.m:
-% MATLAB/MAS
-% Location of datafiles: MATLAB/data
-% output files will be in MATLAB/data
-% .oib files should be labelled by consequent numbers starting with 1
+% Files should be labelled by consequent numbers starting with 1
 % Output file All.csv contains infomation about every individual
 % attachment site, whereas Avarage.csv contains avarage values per embryo.
+% They will be saved in the same folder as image files
 
 clc;
 clear variables;
 close all;
 
+%%Default extension
+fileext = '.oib';
+
+usedefault = questdlg(strcat('Use default settings (fileext = ', fileext,'?)'),'Settings','Yes','No','Yes');
+if strcmp(usedefault, 'No');
+    parameters = inputdlg({'Enter file extension:'},'Parameters',1,{fileext});
+    % *** Redefine extension ***
+    fileext = parameters{1};
+else
+    parameters{1} = fileext;
+end
+
 %Open the file
-cd('../');
-cd('data/');
-files = dir('*.oib');
-cd('../');
-cd('MAS/');
+currdir = pwd;
+filedir = uigetdir();
+files = dir(strcat(filedir,'/*', '.oib'));
+cd(filedir);
+% cd('../');
+% cd('data/');
+% files = dir('*.oib');
+% cd('../');
+% cd('MAS/');
+%% assign memory
 data=zeros(1000,3);
 data2=zeros(numel(files)+2,3);
 datacounter=0;
@@ -25,11 +39,9 @@ for k = 1:numel(files)
     
     %% read image
     Number1 = [num2str(k),'.oib'];
-    cd('../');
-    cd('data/');
+
     I=bfopen(Number1);
-    cd('../');
-    cd('MAS/');
+
     Series = I{1,1};
     seriesCount = size(Series, 1); %display size to check type of file
     Series_plane1= Series{1,1};
@@ -106,15 +118,13 @@ data2(numel(files) + 2,4) = sum(data2(1:numel(files),4))/numel(files);
 data2(numel(files) + 2,5) = sum(data2(1:numel(files),5))/numel(files);
 
 %% Writing output files in MATLAB/data folder
-cd('../');
-cd('data/');
+
 headers = {'embryo', 'Intensiry', 'Area', 'Total', 'Eccentricity','Number MAS'};
 csvwrite_with_headers('Average.csv',data2, headers);
 headers = {'embryo', 'Intensiry', 'Area', 'Total', 'Eccentricity'};
 csvwrite_with_headers('All.csv',data, headers);
-cd('../');
-cd('MAS/');
 
+cd(currdir);
 clc;
 clear variables;
 close all;
