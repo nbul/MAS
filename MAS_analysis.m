@@ -1,7 +1,7 @@
-%% Script to measure parameters of mascle attachment sites
+%% Script to measure parameters of muscle attachment sites
 % Files should be labelled by consequent numbers starting with 1
-% Output file All.csv contains infomation about every individual
-% attachment site, whereas Avarage.csv contains avarage values per embryo.
+% Output file All.csv contains information about every individual
+% attachment site, whereas Average.csv contains avarage values per embryo.
 % They will be saved in the same folder as image files
 
 clc;
