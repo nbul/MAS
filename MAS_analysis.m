@@ -23,6 +23,7 @@ end
 
 %% Open the file
 currdir = pwd;
+addpath(pwd);
 filedir = uigetdir();
 files = dir(strcat(filedir,'/*', '.oib'));
 cd(filedir);
