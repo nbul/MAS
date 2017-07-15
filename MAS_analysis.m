@@ -13,7 +13,7 @@ close all;
 fileext = '.oib';
 
 usedefault = questdlg(strcat('Use default settings (fileext = ', fileext,'?)'),'Settings','Yes','No','Yes');
-if strcmp(usedefault, 'No');
+if strcmp(usedefault, 'No')
     parameters = inputdlg({'Enter file extension:'},'Parameters',1,{fileext});
     % Redefine extension 
     fileext = parameters{1};
