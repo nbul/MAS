@@ -10,7 +10,7 @@ anterior-posterior axis).<br>
 ![Example of a z-section](images/Example_MAS.png)
 
 1. Files should be labelled by consequent numbers starting with 1 (i.e. 1,2,3,4...)<br>
-![Example of file organisation](images/files.tiff)
+![Example of file organisation](images/files.png)
 
 **Then simply run MAS_analysis.m, select a folder with images and relax**
 
