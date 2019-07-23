@@ -73,11 +73,11 @@ try
     % If the following fails for any reason, then bioformats is not working.
     % Getting the version number and creating a reader is the bare minimum.
     reader = javaObject('loci.formats.in.FakeReader');
-    if is_octave()
-        version = char(java_get('loci.formats.FormatTools', 'VERSION'));
-    else
+ %   if is_octave()
+ %       version = char(java_get('loci.formats.FormatTools', 'VERSION'));
+  %  else
         version = char(loci.formats.FormatTools.VERSION);
-    end
+  %  end
 catch
     status = false;
 end
